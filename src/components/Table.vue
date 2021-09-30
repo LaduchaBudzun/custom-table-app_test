@@ -6,7 +6,7 @@
    <div>
      <button v-b-modal.modal-1  class="btn-settings">Настройка</button>
 
-     <b-modal id="modal-1" title="Настройка">
+     <b-modal ref="my-modal" id="modal-1" title="Настройка" ok-title="Сохранить" cancel-title="Отмена" cancel-variant="danger" @ok="handleOk">
     <div class="D-n-D">
 
     <div class="selected">
@@ -27,6 +27,7 @@
      </div>
 
     </div>
+    <b-button class="mt-3" block @click="$bvModal.hide('modal-1')">Close Me</b-button>
     </b-modal> 
    </div>
 
@@ -75,8 +76,32 @@ export default {
       { name: 'Vlad', value: '20', department: 'Domus',id:4},
       { name: 'Stas', value: '20', department: 'Domus',id:5},
       { name: 'Genri', value: '1267', department: 'Ford',id:6},
+    ],
+    itemsPopup:[
+        { name: 'Ivan', value: '12345', department: 'qwerty',id:1},
+        { name: 'Sergei', value: '12345', department: 'qwerty',id:2},
+        { name: 'Alex', value: '12345', department: 'qwerty',id:3}
+    ],
+    hiddenItemsPopup:[
+      { name: 'Vlad', value: '20', department: 'Domus',id:4},
+      { name: 'Stas', value: '20', department: 'Domus',id:5},
+      { name: 'Genri', value: '1267', department: 'Ford',id:6},
     ]
     }
+  },
+  methods:{
+    handleOk(bvModalEvt) {
+
+        // Prevent modal from closing
+        bvModalEvt.preventDefault()
+        
+      
+    //  this.$root.$bvModal.hide('modal-1')
+        // this.$bvModal.hide('#modal-1')
+        // this.$refs['my-modal'].hide()
+        // this.$root.$emit('bv::hide::modal', 'modal-1')
+       
+      },
   }
 }
 </script>
@@ -97,6 +122,7 @@ export default {
 
 }
 .item{
+  cursor: move;
   padding: 10px 5px;
   border: 1px solid #5a567f;
   margin: 2px;
