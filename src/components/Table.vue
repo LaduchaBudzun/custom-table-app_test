@@ -10,6 +10,7 @@
     <div class="D-n-D">
 
     <div class="selected">
+      <h4>Выбранные</h4>
        <draggable :list="items" group="todosapp">
           <div class="item" v-for="item in items" :key="item.id" :item="item">
            <td >{{item.name}}</td>
@@ -19,6 +20,7 @@
 
       
      <div class="available">
+       <h4>Скрытые</h4>
         <draggable :list="hiddenItems" group="todosapp">
           <div class="item" v-for="hitem in hiddenItems" :key="hitem.id" :item="hitem">
            <td >{{hitem.name}}</td>
@@ -97,7 +99,7 @@ export default {
         
       
     //  this.$root.$bvModal.hide('modal-1')
-        // this.$bvModal.hide('#modal-1')
+        this.$bvModal.hide('#modal-1')
         // this.$refs['my-modal'].hide()
         // this.$root.$emit('bv::hide::modal', 'modal-1')
        
@@ -115,6 +117,9 @@ export default {
   display: flex;
   justify-content: space-between;
 }
+.D-n-D h4{
+  text-align: center;
+}
 .selected{
   
 }
@@ -123,8 +128,10 @@ export default {
 }
 .item{
   cursor: move;
-  padding: 10px 5px;
-  border: 1px solid #5a567f;
+  padding: 15px 70px;
+  border: 3px solid #5a567f;
+  border-radius: 4px;
+  background-color:#f3f2ff;
   margin: 2px;
 }
 .btn-settings{
