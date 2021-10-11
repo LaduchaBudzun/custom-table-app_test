@@ -6,7 +6,7 @@
    <div>
      <button v-b-modal.modal-1  class="btn-settings">Настройка</button>
 
-     <b-modal ref="my-modal" id="modal-1" title="Настройка" ok-title="Сохранить" cancel-title="Отмена" cancel-variant="danger" @ok="handleOk" @cancel="handlerCancel" static>
+     <b-modal static ref="my-modal" id="modal-1" title="Настройка" ok-title="Сохранить" cancel-title="Отмена" cancel-variant="danger" @ok="handleOk" @cancel="handlerCancel" >
     <div class="D-n-D">
 
     <div class="selected">
@@ -104,6 +104,7 @@ export default {
        
       },
       handlerCancel(){
+
       
       this.itemsPopup = this.items
       this.hiddenItemsPopup = this.hiddenItems
