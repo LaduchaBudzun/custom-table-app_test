@@ -6,13 +6,13 @@
    <div>
      <button v-b-modal.modal-1  class="btn-settings">Настройка</button>
 
-     <b-modal ref="my-modal" id="modal-1" title="Настройка" ok-title="Сохранить" cancel-title="Отмена" cancel-variant="danger" @ok="handleOk">
+     <b-modal static ref="my-modal" id="modal-1" title="Настройка" ok-title="Сохранить" cancel-title="Отмена" cancel-variant="danger" @ok="handleOk" @cancel="handlerCancel" >
     <div class="D-n-D">
 
     <div class="selected">
       <h4>Выбранные</h4>
-       <draggable :list="items" group="todosapp">
-          <div class="item" v-for="item in items" :key="item.id" :item="item">
+       <draggable :list="itemsPopup" group="todosapp" ghostClass="on-drag" animation="400">
+          <div class="item" v-for="item in itemsPopup" :key="item.id" :item="item">
            <td >{{item.name}}</td>
         </div>
         </draggable>
@@ -21,15 +21,14 @@
       
      <div class="available">
        <h4>Скрытые</h4>
-        <draggable :list="hiddenItems" group="todosapp">
-          <div class="item" v-for="hitem in hiddenItems" :key="hitem.id" :item="hitem">
+        <draggable :list="hiddenItemsPopup" group="todosapp" ghostClass="on-drag" animation="400"> 
+          <div class="item" v-for="hitem in hiddenItemsPopup" :key="hitem.id" :item="hitem">
            <td >{{hitem.name}}</td>
         </div>
         </draggable>
      </div>
 
     </div>
-    <b-button class="mt-3" block @click="$bvModal.hide('modal-1')">Close Me</b-button>
     </b-modal> 
    </div>
 
@@ -88,24 +87,40 @@ export default {
       { name: 'Vlad', value: '20', department: 'Domus',id:4},
       { name: 'Stas', value: '20', department: 'Domus',id:5},
       { name: 'Genri', value: '1267', department: 'Ford',id:6},
-    ]
+    ],
+    
     }
   },
   methods:{
-    handleOk(bvModalEvt) {
+    handleOk() {
 
-        // Prevent modal from closing
-        bvModalEvt.preventDefault()
+        // // Prevent modal from closing
+        // bvModalEvt.preventDefault()
         
-      
-    //  this.$root.$bvModal.hide('modal-1')
-        this.$bvModal.hide('#modal-1')
-        // this.$refs['my-modal'].hide()
-        // this.$root.$emit('bv::hide::modal', 'modal-1')
+        
+        this.items = this.itemsPopup
+        this.hiddenItems = this.hiddenItemsPopup
+        // bvModalEvt - setTimeout(() => this.$bvModal.hide('modal-1'));
        
       },
+      handlerCancel(){
+
+      
+      this.itemsPopup = this.items
+      this.hiddenItemsPopup = this.hiddenItems
+      
+      
+      
+      
+      // this.hiddenItems = this.hiddenItems.filter(item => this.items.includes(item));
+      
+      }
   }
 }
+  
+  
+
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -121,10 +136,20 @@ export default {
   text-align: center;
 }
 .selected{
-  
+  width: 100%;
+  height: 100%;
+  border: 1px solid #777777;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 3px;
 }
 .available{
-
+  width: 100%;
+  height: 100%;
+  border: 1px solid #777777;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 3px;
 }
 .item{
   cursor: move;
@@ -133,6 +158,19 @@ export default {
   border-radius: 4px;
   background-color:#f3f2ff;
   margin: 2px;
+   -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
+.on-drag{
+  color: #fff;
+  background-color: rgb(103,174,255);
+  z-index: 10;
+  border: none;
 }
 .btn-settings{
    border-top: 1px solid #777777;	
